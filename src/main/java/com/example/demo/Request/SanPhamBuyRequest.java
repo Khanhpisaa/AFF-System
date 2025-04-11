@@ -2,6 +2,9 @@ package com.example.demo.Request;
 
 import com.example.demo.Entity.SanPham;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,7 +16,10 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @Data
 @Builder
+@Entity
 public class SanPhamBuyRequest {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer maSanPham;
     private String tenSanPham;
     private String tenNguoiNhan;
@@ -26,6 +32,7 @@ public class SanPhamBuyRequest {
     private String paymentMethod;
 
     public SanPhamBuyRequest(SanPham sanPham, Integer soLuong) {
+        this.maSanPham = getMaSanPham();
         this.tenSanPham = getTenSanPham();
         this.soLuong = soLuong;
         this.gia = sanPham.getGia();

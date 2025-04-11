@@ -18,7 +18,6 @@ import java.time.LocalDate;
 public class SanPham {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     Integer MaSanPham;
 
     String TenSanPham;

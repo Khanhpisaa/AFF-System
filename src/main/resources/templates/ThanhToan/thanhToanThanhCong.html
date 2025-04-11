@@ -2,21 +2,39 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Xác nhận đơn hàng</title>
+    <title>Thanh Toán Thành Công</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .success-icon {
+            font-size: 4rem;
+            color: #28a745;
+        }
+        .card {
+            max-width: 600px;
+            margin: auto;
+        }
+    </style>
 </head>
 <body>
 <div class="container mt-5">
-    <h2 class="text-success">Đặt hàng thành công!</h2>
-    <p>Cảm ơn bạn đã mua hàng tại hệ thống Affiliate.</p>
+    <div class="card shadow p-4">
+        <div class="text-center">
+            <div class="success-icon mb-3">✅</div>
+            <h2 class="text-success">Thanh toán thành công!</h2>
+            <p class="mt-3">Cảm ơn <strong th:text="${hoTen}"></strong> đã đặt hàng.</p>
+        </div>
 
-    <div th:if="${donHang != null}">
-        <p><strong>Tên người nhận:</strong> <span th:text="${donHang.tenNguoiNhan}"></span></p>
-        <p><strong>Email:</strong> <span th:text="${donHang.emailNguoiNhan}"></span></p>
-        <p><strong>Địa chỉ:</strong> <span th:text="${donHang.diaChiGiaoHang}"></span></p>
-        <p><strong>Tổng tiền:</strong> <span th:text="${donHang.tongTien}"></span> VNĐ</p>
-        <p><strong>Ghi chú:</strong> <span th:text="${donHang.ghiChu}"></span></p>
-        <p><strong>Trạng thái:</strong> <span th:text="${donHang.trangThai}"></span></p>
+        <div class="mt-4">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><strong>Email:</strong> <span th:text="${email}"></span></li>
+                <li class="list-group-item"><strong>Địa chỉ giao hàng:</strong> <span th:text="${diaChiGiaoHang}"></span></li>
+                <li class="list-group-item"><strong>Ghi chú:</strong> <span th:text="${ghiChu}"></span></li>
+            </ul>
+        </div>
+
+        <div class="text-center mt-4">
+            <a href="/san-pham/hien-thi" class="btn btn-primary px-4">Quay lại Trang chủ</a>
+        </div>
     </div>
 </div>
 </body>
