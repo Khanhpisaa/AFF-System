@@ -1,6 +1,7 @@
 package com.example.demo.Controller;
 
 import com.example.demo.Entity.NguoiDung;
+import com.example.demo.Enum.Role;
 import com.example.demo.Service.NguoiDungService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,7 @@ public class NguoiDungController {
 
     @PostMapping("/dang-ky")
     public String dangKy(NguoiDung nguoiDung) {
+        nguoiDung.setVaiTro(Role.KhachHang); // hoặc lấy từ form như đã nói
         nguoiDungService.addNguoiDung(nguoiDung);
         return "redirect:/dang-nhap";
     }
@@ -62,4 +64,5 @@ public class NguoiDungController {
         session.removeAttribute("nguoiDung");
         return "redirect:/dang-nhap";
     }
+
 }
