@@ -21,10 +21,11 @@ public class DoiTac {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer MaDoiTac;
 
-    String MaDoiTacCode;
-
-    LocalDate NgayThamGia;
-
+    String TenDoiTac;
+    String Email;
+    String SoDienThoai;
+    String DiaChi;
     String TrangThai;
+
 
 }
