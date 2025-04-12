@@ -8,23 +8,25 @@ import java.time.LocalDate;
 
 @Entity
 @Data
-public class HoaHong {
+public class GiaoDich {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer maHoaHong;
+    private Integer maGiaoDich;
 
     @ManyToOne
     @JoinColumn(name = "maNguoiDung")
     private NguoiDung nguoiDung;
 
     @ManyToOne
-    @JoinColumn(name = "maGiaoDich")
-    private GiaoDich giaoDich;
+    @JoinColumn(name = "maSanPham")
+    private SanPham sanPham;
 
-    private BigDecimal soTienHoaHong;
+    private Integer soLuong;
 
-    private LocalDate ngayNhan;
+    private BigDecimal tongTien;
+
+    private LocalDate ngayGiaoDich;
 
     private String trangThai;
 }

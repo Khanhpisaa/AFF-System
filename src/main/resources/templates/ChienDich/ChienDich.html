@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Danh sách chiến dịch</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h2>Danh sách chiến dịch</h2>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Tên chiến dịch</th>
+            <th>Mô tả</th>
+            <th>Ngày bắt đầu</th>
+            <th>Ngày kết thúc</th>
+            <th>Trạng thái</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="cd : ${dsChienDich}">
+            <td th:text="${cd.maChienDich}"></td>
+            <td th:text="${cd.tenChienDich}"></td>
+            <td th:text="${cd.moTa}"></td>
+            <td th:text="${cd.ngayBatDau}"></td>
+            <td th:text="${cd.ngayKetThuc}"></td>
+            <td th:text="${cd.trangThai}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
