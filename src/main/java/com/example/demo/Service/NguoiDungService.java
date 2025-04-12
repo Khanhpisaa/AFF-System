@@ -8,9 +8,11 @@ import org.springframework.stereotype.Service;
 //import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
-public class NguoiDungService {
+public class
+NguoiDungService {
 
     @Autowired
     NguoiDungRepository nguoiDungRepository;
@@ -27,5 +29,14 @@ public class NguoiDungService {
 
     public NguoiDung kiemTraDangNhap(String email, String matKhau) {
         return nguoiDungRepository.findByEmailAndMatKhau(email, matKhau).orElse(null);
+    }
+
+    public NguoiDung findByEmail(String email) {
+        List<NguoiDung> users = nguoiDungRepository.findFirstByEmail(email);
+        if (users.size() > 1) {
+            // Xử lý khi có nhiều kết quả trùng
+            throw new RuntimeException("Multiple users found with the same email");
+        }
+        return users.isEmpty() ? null : users.get(0);
     }
 }

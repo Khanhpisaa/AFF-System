@@ -1,39 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Trang Đối Tác</title>
 </head>
 <body>
-<table>
-    <thead>
-    <tr>
-        <td>Mã đối tác</td>
-        <td>Tên đối tác</td>
-        <td>Email</td>
-        <td>Số điện thoại</td>
-        <td>Địa chỉ</td>
-        <td>Trạng thái</td>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="dt : ${listDoiTac}">
-        <td th:text="${dt.maDoiTac}">Mã</td>
-        <td th:text="${dt.tenDoiTac}">Tên</td>
-        <td th:text="${dt.email}">Email</td>
-        <td th:text="${dt.soDienThoai}">SDT</td>
-        <td th:text="${dt.diaChi}">Địa chỉ</td>
-        <td th:text="${dt.trangThai}">Trạng thái</td>
-
-        <td th:if="${dt.trangThai == 'Đang hợp tác'}">
-            <a th:href="@{|/doi-tac/update-trang-thai/*{dt.maDoiTac}|}">Ngưng hợp tác</a>
-        </td>
-
-        <td th:if="${dt.trangThai == 'Ngưng hợp tác'}">
-            <a th:href="@{|/doi-tac/update-trang-thai1/*{dt.maDoiTac}|}">Hợp tác</a>
-        </td>
-    </tr>
-    </tbody>
-</table>
+<h2>Chào mừng Đối Tác!</h2>
+<p>Đây là trang dành riêng cho đối tác.</p>
 </body>
 </html>

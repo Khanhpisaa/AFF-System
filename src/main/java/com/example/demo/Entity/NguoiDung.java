@@ -1,5 +1,6 @@
 package com.example.demo.Entity;
 
+import com.example.demo.Enum.Role;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -25,12 +26,13 @@ public class NguoiDung {
 
     String hoTen;
 
-    String vaiTro;
+    String soDienThoai;
 
 
     public NguoiDung(String hoTen, String email) {
         this.hoTen = hoTen;
         this.email = email;
     }
-
+    @Enumerated(EnumType.STRING)
+    private Role vaiTro;
 }

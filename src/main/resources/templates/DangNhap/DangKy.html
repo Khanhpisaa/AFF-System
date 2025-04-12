@@ -16,17 +16,22 @@
         </div>
 
         <div class="mb-3">
-            <label class="form-label">Mật khẩu</label>
+            <label class="form-label">Mật Khẩu</label>
             <input type="password" th:field="*{matKhau}" class="form-control" required>
         </div>
 
         <div class="mb-3">
-            <label class="form-label">Họ tên</label>
+            <label class="form-label">Họ Tên</label>
             <input type="text" th:field="*{hoTen}" class="form-control">
         </div>
 
         <div class="mb-3">
-            <label class="form-label">Vai trò</label>
+            <label class="form-label">Số Điện Thoại</label>
+            <input type="text" th:field="*{soDienThoai}" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Vai Trò</label>
             <select th:field="*{vaiTro}" class="form-select">
                 <option value="affiliate">Affiliate</option>
                 <option value="khach_hang">Khách hàng</option>

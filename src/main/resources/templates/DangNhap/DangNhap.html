@@ -9,21 +9,31 @@
 <div class="container mt-5">
     <h2 class="text-center text-primary mb-4">Đăng Nhập</h2>
 
+    <!-- Form đăng nhập -->
     <form th:action="@{/dang-nhap}" method="post" class="mx-auto" style="max-width: 500px;">
-        <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+        <!-- Thông báo lỗi nếu có -->
+        <div th:if="${param.error}" class="alert alert-danger">
+            Sai tài khoản hoặc mật khẩu!
+        </div>
 
+        <!-- Email -->
         <div class="mb-3">
             <label class="form-label">Email</label>
-            <input type="email" name="email" class="form-control" required>
+            <input type="email" name="email" class="form-control" placeholder="Nhập email" required>
         </div>
 
+        <!-- Mật khẩu -->
         <div class="mb-3">
             <label class="form-label">Mật khẩu</label>
-            <input type="password" name="matKhau" class="form-control" required>
+            <input type="password" name="matKhau" class="form-control" placeholder="Nhập mật khẩu" required>
         </div>
-        <a href="/dang-ky">
-            <p>Đăng Ký Tài Khoản</p>
-        </a>
+
+        <!-- Đăng ký -->
+        <div class="mb-3 text-end">
+            <a th:href="@{/dang-ky}">Chưa có tài khoản? Đăng ký</a>
+        </div>
+
+        <!-- Nút đăng nhập -->
         <button type="submit" class="btn btn-primary w-100">Đăng nhập</button>
     </form>
 </div>
