@@ -13,6 +13,8 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Data
 @Builder
+@Getter
+@Setter
 @Table(name = "SanPham")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class SanPham {

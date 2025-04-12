@@ -19,8 +19,6 @@ public class NguoiDung {
 
     Integer maNguoiDung;
 
-    String tenDangNhap;
-
     String email;
 
     String matKhau;
@@ -29,7 +27,6 @@ public class NguoiDung {
 
     String vaiTro;
 
-    LocalDate ngayTao;
 
     public NguoiDung(String hoTen, String email) {
         this.hoTen = hoTen;

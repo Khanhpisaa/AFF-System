@@ -11,11 +11,6 @@
 
     <form th:action="@{/dang-ky}" th:object="${nguoiDung}" method="post" class="mx-auto" style="max-width: 500px;">
         <div class="mb-3">
-            <label class="form-label">Tên đăng nhập</label>
-            <input type="text" th:field="*{tenDangNhap}" class="form-control" required>
-        </div>
-
-        <div class="mb-3">
             <label class="form-label">Email</label>
             <input type="email" th:field="*{email}" class="form-control" required>
         </div>

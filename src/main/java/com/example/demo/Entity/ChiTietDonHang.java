@@ -1,10 +1,7 @@
 package com.example.demo.Entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -16,6 +13,8 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 @Builder
+@Getter
+@Setter
 @Table(name = "DonHang")
 public class ChiTietDonHang {
     @Id

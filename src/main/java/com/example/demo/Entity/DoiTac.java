@@ -12,6 +12,8 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Data
 @Builder
+@Getter
+@Setter
 @Table(name = "DoiTac")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class DoiTac {

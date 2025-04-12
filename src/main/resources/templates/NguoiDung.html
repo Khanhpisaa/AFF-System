@@ -10,23 +10,19 @@
         <thead>
             <tr>
                 <th>MaNguoiDung</th>
-                <th>TenDangNhap</th>
                 <th>Email</th>
                 <th>MatKhau</th>
                 <th>HoTen</th>
                 <th>VaiTro</th>
-                <th>NgayTao</th>
             </tr>
         </thead>
         <tbody>
             <tr th:each="nguoiDung : ${listNguoiDung}">
                 <td th:text="${nguoiDung.maNguoiDung}"></td>
-                <td th:text="${nguoiDung.tenDangNhap}"></td>
                 <td th:text="${nguoiDung.email}"></td>
                 <td th:text="${nguoiDung.matKhau}"></td>
                 <td th:text="${nguoiDung.hoTen}"></td>
                 <td th:text="${nguoiDung.vaiTro}"></td>
-                <td th:text="${nguoiDung.ngayTao}"></td>
             </tr>
         </tbody>
     </table>
