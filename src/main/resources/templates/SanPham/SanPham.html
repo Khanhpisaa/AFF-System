@@ -39,7 +39,7 @@
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
     <div class="container">
-        <a class="navbar-brand text-primary fw-bold" href="#">AFF System</a>
+        <a class="navbar-brand text-primary fw-bold" href="/san-pham/hien-thi">AFF System</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
                 aria-expanded="false" aria-label="Toggle navigation">
@@ -47,10 +47,16 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link active" href="/san-pham/hien-thi">Trang Chủ</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Chiến Dịch</a></li>
-                <li class="nav-item"><a class="nav-link" href="/doi-tac/hien-thi">Đối Tác</a></li>
-                <li class="nav-item"><a class="nav-link" href="/dang-nhap">Đăng nhập</a></li>
+                <li class="nav-item" th:if="${tenNguoiDung != null}">
+                    <a class="nav-link" href="#">Chào, <span th:text="${tenNguoiDung}">Người Dùng</span></a>
+                </li>
+                <li class="nav-item" th:if="${tenNguoiDung == null}">
+                    <a class="nav-link" href="/dang-nhap">Đăng nhập</a>
+                </li>
+
+                <li class="nav-item" th:if="${tenNguoiDung != null}">
+                    <a class="nav-link" href="/dang-xuat">Đăng xuất</a>
+                </li>
             </ul>
         </div>
     </div>
@@ -106,7 +112,7 @@
     <h2 class="text-center text-primary mb-4">Hệ thống Affiliate bán hàng thông minh và linh hoạt</h2>
     <div class="row align-items-center">
         <div class="col-md-6 mb-4">
-            <img src="/images/affiliate-intro.jpg" class="img-fluid rounded shadow" alt="Giới thiệu hệ thống">
+            <img src="/images/logo.jpg" class="img-fluid rounded shadow" alt="Giới thiệu hệ thống">
         </div>
         <div class="col-md-6 mb-4">
             <p class="lead">Chúng tôi cung cấp nền tảng tiếp thị liên kết hiện đại, giúp bạn dễ dàng tạo ra nguồn thu nhập thụ động từ việc chia sẻ các sản phẩm hấp dẫn đến đúng đối tượng khách hàng.</p>

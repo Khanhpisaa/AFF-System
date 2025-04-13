@@ -5,8 +5,6 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import java.time.LocalDate;
-
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -17,7 +15,6 @@ import java.time.LocalDate;
 public class NguoiDung {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     Integer maNguoiDung;
 
     String email;
@@ -28,11 +25,11 @@ public class NguoiDung {
 
     String soDienThoai;
 
+    @Enumerated(EnumType.STRING)
+    private Role vaiTro;
 
     public NguoiDung(String hoTen, String email) {
         this.hoTen = hoTen;
         this.email = email;
     }
-    @Enumerated(EnumType.STRING)
-    private Role vaiTro;
 }

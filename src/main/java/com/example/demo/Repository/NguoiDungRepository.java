@@ -9,11 +9,7 @@ import java.util.Optional;
 
 @Repository
 public interface NguoiDungRepository extends JpaRepository<NguoiDung, Integer> {
-    Optional<NguoiDung> findByEmailAndMatKhau(String email, String matKhau);
-
+    List<NguoiDung> findByEmailAndMatKhau(String email, String matKhau);
     Optional<NguoiDung> findByEmail(String email);
-
     List<NguoiDung> findFirstByEmail(String email);  // Chỉ lấy một bản ghi
-
-
 }

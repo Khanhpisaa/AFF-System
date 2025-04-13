@@ -4,15 +4,12 @@ import com.example.demo.Entity.NguoiDung;
 import com.example.demo.Repository.NguoiDungRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-//import org.springframework.security.core.context.SecurityContextHolder;
-//import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class
-NguoiDungService {
+public class NguoiDungService {
 
     @Autowired
     NguoiDungRepository nguoiDungRepository;
@@ -25,12 +22,16 @@ NguoiDungService {
         nguoiDungRepository.save(nguoiDung);
     }
 
-    // dang nhap - dang ky
-
+    // Đăng nhập
     public NguoiDung kiemTraDangNhap(String email, String matKhau) {
-        return nguoiDungRepository.findByEmailAndMatKhau(email, matKhau).orElse(null);
+        List<NguoiDung> ketQua = nguoiDungRepository.findByEmailAndMatKhau(email, matKhau);
+        if (ketQua != null && !ketQua.isEmpty()) {
+            return ketQua.get(0); // Lấy người đầu tiên
+        }
+        return null;
     }
 
+    // Tìm người dùng theo email
     public NguoiDung findByEmail(String email) {
         List<NguoiDung> users = nguoiDungRepository.findFirstByEmail(email);
         if (users.size() > 1) {

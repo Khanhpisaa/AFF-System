@@ -45,17 +45,18 @@ public class NguoiDungController {
     }
 
     @PostMapping("/dang-nhap")
-    public String login(@RequestParam("email") String email,
-                        @RequestParam("matKhau") String matKhau,
-                        HttpSession session) {
-        NguoiDung nguoiDung = nguoiDungService.findByEmail(email);
-
-        if (nguoiDung != null && nguoiDung.getMatKhau().equals(matKhau)) {
-            session.setAttribute("nguoiDung", nguoiDung);
-            return "redirect:/san-pham/hien-thi";  // Sau khi đăng nhập thành công, về trang chủ hoặc trang tùy chọn
+    public String dangNhap(@RequestParam String email,
+                           @RequestParam String matKhau,
+                           HttpSession session,
+                           Model model) {
+        NguoiDung nd = nguoiDungService.kiemTraDangNhap(email, matKhau);
+        if (nd != null && nd.getVaiTro() == Role.KhachHang) {
+            session.setAttribute("khachHang", nd);
+            return "redirect:/san-pham/hien-thi";
+        } else {
+            model.addAttribute("thongBao", "Sai thông tin đăng nhập hoặc không phải khách hàng");
+            return "/DangNhap/DangNhap";
         }
-
-        return "redirect:/dang-nhap?error";
     }
 
     // Đăng xuất
@@ -64,5 +65,4 @@ public class NguoiDungController {
         session.removeAttribute("nguoiDung");
         return "redirect:/dang-nhap";
     }
-
 }
