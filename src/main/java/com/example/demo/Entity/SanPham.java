@@ -28,6 +28,8 @@ public class SanPham {
 
     BigDecimal Gia;
 
+    Integer soLuong;
+
     LocalDate NgayTao;
 
     String Anh;

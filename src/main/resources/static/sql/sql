@@ -1,8 +1,7 @@
 -- Tạo database
-CREATE DATABASE HeThongAFF7;
+CREATE DATABASE He_Thong_AFF;
 GO
--- drop database HeThongAFF6;
-USE HeThongAFF7;
+USE He_Thong_AFF;
 GO
 
 -- Tạo bảng NguoiDung
@@ -25,8 +24,6 @@ VALUES
 (N'Phạm Thị D', 'd@gmail.com', 'matkhau4', '0900000004', N'Admin', N'HoatDong'),
 (N'Hoàng Văn E', 'e@gmail.com', 'matkhau5', '0900000005', N'KhachHang', N'HoatDong');
 
-UPDATE NguoiDung SET VaiTro = N'Hoat_dong' WHERE VaiTro LIKE N'%Ho?t d?ng%';
-UPDATE NguoiDung SET VaiTro = N'Bi_khoa' WHERE VaiTro LIKE N'%Khóa%';
 
 SELECT * FROM NguoiDung;
 
@@ -46,12 +43,29 @@ CREATE TABLE SanPham (
     TenSanPham NVARCHAR(255),
     MoTa NVARCHAR(1000),
     Gia DECIMAL(18, 2),
+	SoLuong INT NOT NULL,
     MaDoiTac INT,
     TrangThai NVARCHAR(50),
     Anh NVARCHAR(250) NOT NULL,
     NgayTao DATETIME DEFAULT GETDATE(),
     FOREIGN KEY (MaDoiTac) REFERENCES DoiTac(MaDoiTac)
 );
+
+-- Dữ liệu mẫu SanPham (12 dòng)
+INSERT INTO SanPham (TenSanPham, MoTa, Gia,SoLuong, Anh)
+VALUES
+(N'Áo Thun AFF', N'Áo thun nam chất liệu cotton', 150000,10, N'ao-thun.jpg'),
+(N'Mũ Lưỡi Trai', N'Mũ thời trang thể thao', 90000,10, N'mu-luoi-trai.jpg'),
+(N'Giày Sneaker', N'Giày nam phong cách Hàn Quốc', 450000,10, N'giay.jpg'),
+(N'Tai Nghe Bluetooth', N'Tai nghe không dây siêu nhẹ', 250000,10, N'tainghe.jpg'),
+(N'Balo Thời Trang', N'Balo laptop học sinh sinh viên', 300000,10, N'balo.jpg'),
+(N'Tai Nghe Bluetooth', N'Tai nghe không dây siêu nhẹ', 250000,10, N'tainghe.jpg'),
+(N'Áo Thun AFF', N'Áo thun nam chất liệu cotton', 150000,10, N'ao-thun.jpg'),
+(N'Mũ Lưỡi Trai', N'Mũ thời trang thể thao', 90000,10, N'mu-luoi-trai.jpg'),
+(N'Giày Sneaker', N'Giày nam phong cách Hàn Quốc', 450000,10, N'giay.jpg'),
+(N'Áo Thun AFF', N'Áo thun nam chất liệu cotton', 150000,10, N'ao-thun.jpg'),
+(N'Balo Thời Trang', N'Balo laptop học sinh sinh viên', 300000,10, N'balo.jpg'),
+(N'Áo Thun AFF', N'Áo thun nam chất liệu cotton', 150000,10, N'ao-thun.jpg');
 
 -- Tạo bảng ChienDich
 CREATE TABLE ChienDich (
@@ -138,21 +152,7 @@ VALUES
 (N'Shop QWE', 'qwe@doitac.com', '0988000004', N'Biên Hòa', N'Đang hợp tác'),
 (N'Công ty DEF', 'def@doitac.com', '0988000005', N'Hải Phòng', N'Đang hợp tác');
 
--- Dữ liệu mẫu SanPham (12 dòng)
-INSERT INTO SanPham (TenSanPham, MoTa, Gia, Anh)
-VALUES
-(N'Áo Thun AFF', N'Áo thun nam chất liệu cotton', 150000, N'ao-thun.jpg'),
-(N'Mũ Lưỡi Trai', N'Mũ thời trang thể thao', 90000, N'mu-luoi-trai.jpg'),
-(N'Giày Sneaker', N'Giày nam phong cách Hàn Quốc', 450000, N'giay.jpg'),
-(N'Tai Nghe Bluetooth', N'Tai nghe không dây siêu nhẹ', 250000, N'tainghe.jpg'),
-(N'Balo Thời Trang', N'Balo laptop học sinh sinh viên', 300000, N'balo.jpg'),
-(N'Tai Nghe Bluetooth', N'Tai nghe không dây siêu nhẹ', 250000, N'tainghe.jpg'),
-(N'Áo Thun AFF', N'Áo thun nam chất liệu cotton', 150000, N'ao-thun.jpg'),
-(N'Mũ Lưỡi Trai', N'Mũ thời trang thể thao', 90000, N'mu-luoi-trai.jpg'),
-(N'Giày Sneaker', N'Giày nam phong cách Hàn Quốc', 450000, N'giay.jpg'),
-(N'Áo Thun AFF', N'Áo thun nam chất liệu cotton', 150000, N'ao-thun.jpg'),
-(N'Balo Thời Trang', N'Balo laptop học sinh sinh viên', 300000, N'balo.jpg'),
-(N'Áo Thun AFF', N'Áo thun nam chất liệu cotton', 150000, N'ao-thun.jpg');
+
 
 -- Dữ liệu mẫu ChienDich
 INSERT INTO ChienDich (TenChienDich, MoTa, NgayBatDau, NgayKetThuc, TrangThai)
