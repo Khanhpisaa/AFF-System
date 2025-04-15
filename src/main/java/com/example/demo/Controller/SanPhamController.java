@@ -41,12 +41,19 @@ public class SanPhamController {
     @GetMapping("/detail/{id}")
     public String detailSanPham(@PathVariable("id") Integer id,
                                 @RequestParam(defaultValue = "0") int page,
-                                Model model) {
+                                Model model,
+                                HttpSession session) { // Thêm HttpSession ở đây để lấy thông tin người dùng
         int pageSize = 6;
         Pageable pageable = PageRequest.of(page, pageSize);
         Page<SanPham> sanPhamPage = sanPhamService.getAllSanPham(pageable);
 
         SanPham sanPham = sanPhamService.detailSanPham(id);
+
+        // Lấy người dùng từ session
+        NguoiDung khachHang = (NguoiDung) session.getAttribute("khachHang");
+        if (khachHang != null) {
+            model.addAttribute("tenNguoiDung", khachHang.getHoTen());
+        }
 
         model.addAttribute("sanPham", sanPham);
         model.addAttribute("listSanPham", sanPhamPage.getContent());
