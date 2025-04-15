@@ -96,8 +96,7 @@
 
         .action-buttons {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            justify-content: flex-end;
             gap: 20px;
             margin-top: 30px;
         }
@@ -112,21 +111,27 @@
     <div class="checkout-card">
         <h2 class="section-title">Xác Nhận Thanh Toán</h2>
 
-        <form th:action="@{/thanh-toan/xac-nhan}" method="post">
+        <form th:action="@{/thanh-toan/thanh-cong}" method="post">
             <!-- Thông tin người nhận -->
+            <input type="hidden" name="maSanPham" th:value="${gioHang[0].sanPham.maSanPham}" />
             <div class="mb-3">
                 <label for="tenNguoiNhan" class="label-title">Tên người nhận</label>
                 <input type="text" class="form-control" id="tenNguoiNhan" th:value="${nguoiDung.hoTen}" readonly>
             </div>
 
             <div class="mb-3">
+                <label for="email" class="label-title">Email</label>
+                <input type="text" class="form-control" id="email" th:value="${nguoiDung.email}" readonly>
+            </div>
+
+            <div class="mb-3">
                 <label for="diaChi" class="label-title">Địa chỉ giao hàng</label>
-                <input type="text" class="form-control" id="diaChi" th:value="${diaChiGiaoHang}" readonly>
+                <input type="text" class="form-control" id="diaChi" name="diaChi" th:value="${diaChiGiaoHang}" readonly>
             </div>
 
             <div class="mb-3">
                 <label for="ghiChu" class="label-title">Ghi chú</label>
-                <textarea class="form-control" id="ghiChu" rows="3" th:text="${ghiChu}" readonly></textarea>
+                <textarea class="form-control" id="ghiChu" name="ghiChu" rows="3" th:text="${ghiChu}" readonly></textarea>
             </div>
 
             <div class="divider"></div>
@@ -140,13 +145,15 @@
                         <th style="padding: 12px 30px;">Tên sản phẩm</th>
                         <th style="padding: 12px 30px;">Giá</th>
                         <th style="padding: 12px 30px;">Số lượng</th>
+                        <th style="padding: 12px 30px;">Thành tiền</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr th:each="item : ${gioHang}">
-                        <td th:text="${item.tenSanPham}" style="padding: 12px 30px;"></td>
-                        <td th:text="${item.gia}" style="padding: 12px 30px;"></td>
-                        <td th:text="${item.soLuong}" style="padding: 12px 30px;"></td>
+                        <td th:text="${item.sanPham.tenSanPham}"></td>
+                        <td th:text="${item.sanPham.gia}"></td>
+                        <td th:text="${item.sanPham.soLuong}"></td>
+                        <td th:text="${item.sanPham.soLuong * item.sanPham.gia}"></td>
                     </tr>
                     </tbody>
                 </table>
@@ -154,7 +161,7 @@
 
             <!-- Tổng tiền -->
             <div class="total-amount mt-4">
-                Tổng tiền: <span th:text="${tongTien}"></span> đ
+                Tổng tiền: <span th:text="${tongTien}"></span>
             </div>
 
             <div class="divider"></div>
@@ -163,56 +170,21 @@
             <h5 class="section-title" style="font-size: 20px; text-align: left;">Phương thức thanh toán</h5>
 
             <div class="mb-3 form-check">
-                <input class="form-check-input" type="radio" name="paymentMethod" id="bankOption" value="bank" checked onchange="handlePaymentChange()">
+                <input class="form-check-input" type="radio" name="phuongThuc" id="bankOption" value="chuyen_khoan" checked>
                 <label class="form-check-label" for="bankOption">Chuyển khoản</label>
             </div>
 
             <div class="mb-3 form-check">
-                <input class="form-check-input" type="radio" name="paymentMethod" id="codOption" value="cod" onchange="handlePaymentChange()">
-                <label class="form-check-label" for="codOption">Thanh toán khi nhận hàng</label>
+                <input class="form-check-input" type="radio" name="phuongThuc" id="cashOption" value="tien_mat">
+                <label class="form-check-label" for="cashOption">Thanh toán khi nhận hàng</label>
             </div>
 
-            <!-- Nếu chọn chuyển khoản -->
-            <div class="mb-3" id="bankTransferSection">
-                <label class="label-title">Mã QR chuyển khoản</label>
-                <div>
-                    <img src="/images/qr.jpg" alt="QR Chuyển Khoản" width="200" class="border rounded">
-                </div>
-            </div>
-
-            <!-- Nếu chọn thanh toán khi nhận -->
-            <div class="mb-3" id="codSection" style="display: none;">
-                <div class="alert alert-info">
-                    Quý khách sẽ thanh toán trực tiếp khi nhận hàng. Vui lòng chuẩn bị số tiền tương ứng.
-                </div>
-            </div>
-
-            <!-- Hidden Inputs -->
-            <input type="hidden" name="email" th:value="${nguoiDung.email}" />
-            <input type="hidden" name="hoTen" th:value="${nguoiDung.hoTen}" />
-            <input type="hidden" name="diaChiGiaoHang" th:value="${diaChi}" />
-            <input type="hidden" name="ghiChu" th:value="${ghiChu}" />
-            <input type="hidden" name="maSanPham" th:value="${gioHang[0].maSanPham}" />
-            <input type="hidden" name="soLuong" th:value="${gioHang[0].soLuong}" />
-
-            <!-- Nút hành động -->
             <div class="action-buttons">
-                <button onclick="history.back()" class="btn btn-secondary">← Quay lại</button>
-                <button type="submit" class="btn btn-success">Xác nhận & Thanh toán</button>
+                <a href="/" class="btn btn-secondary">Quay lại</a>
+                <button type="submit" class="btn btn-success">Xác nhận thanh toán</button>
             </div>
         </form>
     </div>
 </div>
-
-<script>
-    function handlePaymentChange() {
-        const isBank = document.getElementById('bankOption').checked;
-        document.getElementById('bankTransferSection').style.display = isBank ? 'block' : 'none';
-        document.getElementById('codSection').style.display = isBank ? 'none' : 'block';
-    }
-
-    // Gọi khi tải trang
-    window.onload = handlePaymentChange;
-</script>
 </body>
 </html>

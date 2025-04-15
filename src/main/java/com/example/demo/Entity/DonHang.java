@@ -40,4 +40,8 @@ public class DonHang {
 
     @OneToMany(mappedBy = "donHang", cascade = CascadeType.ALL)
     private List<ChiTietDonHang> chiTietDonHangs = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name = "maSanPham")
+    private SanPham sanPham;
 }

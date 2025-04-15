@@ -7,7 +7,7 @@
 <body class="container mt-4">
 <h2>Đặt hàng</h2>
 <form th:action="@{/don-hang/luu}" method="post">
-    <input type="hidden" name="maSanPham" th:value="${chiTiet.sanPham.MaSanPham}" />
+    <input type="hidden" name="maSanPham" th:value="${chiTiet.sanPham.MaSanPham}" readonly/>
 
     <div class="mb-3">
         <label>Họ tên:</label>
@@ -22,6 +22,11 @@
     <div class="mb-3">
         <label>Địa chỉ giao hàng:</label>
         <input class="form-control" type="text" name="diaChiGiaoHang" required />
+    </div>
+
+    <div class="mb-3">
+        <label>Ghi Chú:</label>
+        <input class="form-control" type="text" name="ghiChu"/>
     </div>
 
     <div class="mb-3">

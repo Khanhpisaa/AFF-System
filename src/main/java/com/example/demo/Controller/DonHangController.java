@@ -4,9 +4,13 @@ import com.example.demo.Entity.ChiTietDonHang;
 import com.example.demo.Entity.DonHang;
 import com.example.demo.Entity.NguoiDung;
 import com.example.demo.Entity.SanPham;
+import com.example.demo.Repository.ChiTietDonHangRepository;
+import com.example.demo.Repository.DonHangRepository;
+import com.example.demo.Repository.SanPhamRepository;
 import com.example.demo.Service.DonHangService;
 import com.example.demo.Service.NguoiDungService;
 import com.example.demo.Service.SanPhamService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +23,7 @@ import java.math.BigDecimal;
 import java.security.Principal;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class DonHangController {
@@ -31,59 +36,102 @@ public class DonHangController {
     @Autowired
     DonHangService donHangService;
 
+    @Autowired
+    DonHangRepository donHangRepository;
+
+    @Autowired
+    SanPhamRepository sanPhamRepository;
+
+    @Autowired
+    ChiTietDonHangRepository chiTietDonHangRepository;
+
+
+
     @GetMapping("/don-hang/tao/{maSanPham}")
-    public String taoHoaDon(@PathVariable("maSanPham") Integer maSanPham, Model model, Principal principal){
-        if (principal == null) {
-            // Có thể redirect về trang login hoặc trả thông báo lỗi tùy bạn
+    public String taoHoaDon(@PathVariable("maSanPham") Integer maSanPham, Model model, HttpSession session) {
+        NguoiDung nguoiDung = (NguoiDung) session.getAttribute("khachHang");
+        if (nguoiDung == null) {
+            System.out.println("chưa đăng nhập");
             return "redirect:/dang-nhap";
         }
+
         SanPham sanPham = sanPhamService.detailSanPham(maSanPham);
-        NguoiDung nguoiDung = nguoiDungService.findByEmail(principal.getName());
 
         DonHang donHang = new DonHang();
         donHang.setNguoiDung(nguoiDung);
-        donHang.setNgayDatHang(new Date()); // dùng java.util.Date
+        donHang.setNgayDatHang(new Date());
         donHang.setTrangThai("cho_xu_ly");
 
         ChiTietDonHang chiTiet = new ChiTietDonHang();
         chiTiet.setSanPham(sanPham);
-        chiTiet.setSoLuong(1); // mặc định
+        chiTiet.setSoLuong(1);
         chiTiet.setDonGia(sanPham.getGia());
 
         model.addAttribute("donHang", donHang);
         model.addAttribute("chiTiet", chiTiet);
         return "DonHang/TaoDonHang";
     }
+
     @PostMapping("/don-hang/luu")
     public String luuDonHang(@RequestParam("maSanPham") Integer maSanPham,
                              @RequestParam("soLuong") Integer soLuong,
                              @RequestParam("diaChiGiaoHang") String diaChi,
-                             Principal principal) {
+                             @RequestParam("ghiChu") String ghiChu,
+                             HttpSession session,
+                             Model model) {
 
-        NguoiDung nguoiDung = nguoiDungService.findByEmail(principal.getName());
-        SanPham sanPham = sanPhamService.detailSanPham(maSanPham);
+        // Lấy người dùng hiện tại từ session
+        NguoiDung nguoiDung = (NguoiDung) session.getAttribute("khachHang");
 
-        BigDecimal thanhTien = sanPham.getGia().multiply(BigDecimal.valueOf(soLuong));
+        if (nguoiDung == null) {
+            // Chưa đăng nhập, chuyển hướng đến trang đăng nhập
+            return "redirect:/dang-nhap";
+        }
 
-        DonHang donHang = new DonHang();
-        donHang.setNguoiDung(nguoiDung);
-        donHang.setNgayDatHang(new Date());
-        donHang.setDiaChiGiaoHang(diaChi);
-        donHang.setSoLuong(soLuong);
-        donHang.setTongTien(thanhTien);
-        donHang.setTrangThai("cho_xu_ly");
+        // Lấy sản phẩm
+        Optional<SanPham> optionalSanPham = sanPhamRepository.findById(maSanPham);
+        if (!optionalSanPham.isPresent()) {
+            model.addAttribute("error", "Sản phẩm không tồn tại");
+            return "redirect:/"; // Hoặc trang báo lỗi
+        }
+        SanPham sanPham = optionalSanPham.get();
 
+        BigDecimal donGia = sanPham.getGia();
+        BigDecimal tongTien = donGia.multiply(BigDecimal.valueOf(soLuong));
+
+        // Tạo đơn hàng
+        DonHang donHang = DonHang.builder()
+                .nguoiDung(nguoiDung)
+                .ngayDatHang(new Date())
+                .diaChiGiaoHang(diaChi)
+                .ghiChu(ghiChu)
+                .soLuong(soLuong)
+                .tongTien(tongTien)
+                .trangThai("cho_xu_ly")
+                .build();
+        donHangRepository.save(donHang);
+
+        // Tạo chi tiết đơn hàng
         ChiTietDonHang chiTiet = new ChiTietDonHang();
         chiTiet.setDonHang(donHang);
         chiTiet.setSanPham(sanPham);
         chiTiet.setSoLuong(soLuong);
-        chiTiet.setDonGia(sanPham.getGia());
+        chiTiet.setDonGia(donGia);
+        chiTietDonHangRepository.save(chiTiet);
 
-        donHang.setChiTietDonHangs(List.of(chiTiet));
+        model.addAttribute("nguoiDung", nguoiDung);
+        model.addAttribute("diaChiGiaoHang", diaChi);
+        model.addAttribute("ghiChu", ghiChu);
+        model.addAttribute("gioHang", List.of(chiTiet)); // 1 sản phẩm thôi
+        model.addAttribute("tongTien", tongTien);
 
-        donHangService.taoDonHang(donHang); // bạn cần tạo service này
+        return "/DonHang/ThanhToan"; // Tên file HTML xác nhận thanh toán
+    }
 
-        return "redirect:/don-hang/thanh-cong"; // bạn tạo thêm trang này hiển thị thông báo
+
+    @PostMapping("/thanh-toan/thanh-cong")
+    public String hienThiThanhToan(){
+        return "/DonHang/ThanhCong.html";
     }
 
 }
