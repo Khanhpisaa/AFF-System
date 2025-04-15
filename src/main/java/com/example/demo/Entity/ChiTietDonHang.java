@@ -15,7 +15,7 @@ import java.util.List;
 @Builder
 @Getter
 @Setter
-@Table(name = "DonHang")
+@Table(name = "ChiTietDonHang")
 public class ChiTietDonHang {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,5 +30,6 @@ public class ChiTietDonHang {
     private SanPham sanPham;
 
     private int soLuong;
+
     private BigDecimal donGia;
 }

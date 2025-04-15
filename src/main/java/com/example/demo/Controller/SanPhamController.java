@@ -56,17 +56,4 @@ public class SanPhamController {
         return "/SanPham/SanPhamDetail.html";
     }
 
-    @GetMapping("/thanh-toan/{id}")
-    public String hienThiTrangMua(@PathVariable("id") Integer id, Model model, HttpSession session) {
-        SanPham sanPham = sanPhamService.detailSanPham(id);
-        model.addAttribute("sanPham", sanPham);
-
-        NguoiDung khachHang = (NguoiDung) session.getAttribute("khachHang");
-        if (khachHang != null) {
-            model.addAttribute("email", khachHang.getEmail());
-            model.addAttribute("hoTen", khachHang.getHoTen());
-        }
-
-        return "/SanPham/SanPhamBuy.html";
-    }
 }

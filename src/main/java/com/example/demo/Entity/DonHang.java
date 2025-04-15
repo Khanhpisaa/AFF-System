@@ -6,6 +6,7 @@ import lombok.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -25,13 +26,18 @@ public class DonHang {
     @JoinColumn(name = "maNguoiDung")
     private NguoiDung nguoiDung;
 
-    private LocalDateTime ngayDatHang = LocalDateTime.now();
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date ngayDatHang;
     private BigDecimal tongTien;
     private String trangThai = "cho_xu_ly";
-    private String diaChiGiaoHang;
     private String ghiChu;
+
+    @Column(name = "soLuong")
+    private Integer soLuong;
+
+    @Column(name = "diaChiGiaoHang")
+    private String diaChiGiaoHang;
 
     @OneToMany(mappedBy = "donHang", cascade = CascadeType.ALL)
     private List<ChiTietDonHang> chiTietDonHangs = new ArrayList<>();
-    // Getters và setters
 }

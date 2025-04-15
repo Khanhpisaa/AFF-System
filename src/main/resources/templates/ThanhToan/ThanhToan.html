@@ -190,8 +190,10 @@
             <!-- Hidden Inputs -->
             <input type="hidden" name="email" th:value="${nguoiDung.email}" />
             <input type="hidden" name="hoTen" th:value="${nguoiDung.hoTen}" />
-            <input type="hidden" name="diaChiGiaoHang" th:value="${diaChiGiaoHang}" />
+            <input type="hidden" name="diaChiGiaoHang" th:value="${diaChi}" />
             <input type="hidden" name="ghiChu" th:value="${ghiChu}" />
+            <input type="hidden" name="maSanPham" th:value="${gioHang[0].maSanPham}" />
+            <input type="hidden" name="soLuong" th:value="${gioHang[0].soLuong}" />
 
             <!-- Nút hành động -->
             <div class="action-buttons">
