@@ -116,12 +116,12 @@
             <input type="hidden" name="maSanPham" th:value="${gioHang[0].sanPham.maSanPham}" />
             <div class="mb-3">
                 <label for="tenNguoiNhan" class="label-title">Tên người nhận</label>
-                <input type="text" class="form-control" id="tenNguoiNhan" th:value="${nguoiDung.hoTen}" readonly>
+                <input type="text" class="form-control" id="tenNguoiNhan" name="tenNguoiNhan" th:value="${nguoiDung.hoTen}" readonly>
             </div>
 
             <div class="mb-3">
                 <label for="email" class="label-title">Email</label>
-                <input type="text" class="form-control" id="email" th:value="${nguoiDung.email}" readonly>
+                <input type="text" class="form-control" id="email" name="email" th:value="${nguoiDung.email}" readonly>
             </div>
 
             <div class="mb-3">
@@ -139,29 +139,29 @@
             <!-- Danh sách sản phẩm -->
             <h5 class="section-title" style="font-size: 20px; text-align: left;">Sản phẩm trong giỏ hàng</h5>
             <div class="table-responsive">
-                <table class="table table-hover table-bordered align-middle text-center">
+                <table class="table table-hover table-bordered align-middle text-center" style="width: 100%;">
                     <thead class="table-light">
                     <tr>
-                        <th style="padding: 12px 30px;">Tên sản phẩm</th>
-                        <th style="padding: 12px 30px;">Giá</th>
-                        <th style="padding: 12px 30px;">Số lượng</th>
-                        <th style="padding: 12px 30px;">Thành tiền</th>
+                        <th>Tên sản phẩm</th>
+                        <th>Đơn giá</th>
+                        <th>Số lượng</th>
+                        <th>Thành tiền</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr th:each="item : ${gioHang}">
                         <td th:text="${item.sanPham.tenSanPham}"></td>
-                        <td th:text="${item.sanPham.gia}"></td>
-                        <td th:text="${item.sanPham.soLuong}"></td>
-                        <td th:text="${item.sanPham.soLuong * item.sanPham.gia}"></td>
+                        <td th:text="${item.donGia}"></td>
+                        <td th:text="${item.soLuong}"></td>
+                        <td th:text="${#numbers.formatDecimal(item.soLuong * item.donGia, 0, 'COMMA', 2, 'POINT')}"></td>
                     </tr>
                     </tbody>
                 </table>
             </div>
-
+            <br>
             <!-- Tổng tiền -->
             <div class="total-amount mt-4">
-                Tổng tiền: <span th:text="${tongTien}"></span>
+                Tổng tiền: <span th:text="${#numbers.formatDecimal(tongTien, 0, 'COMMA', 2, 'POINT')}"></span>
             </div>
 
             <div class="divider"></div>

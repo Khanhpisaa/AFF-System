@@ -7,6 +7,7 @@ import com.example.demo.Entity.SanPham;
 import com.example.demo.Repository.ChiTietDonHangRepository;
 import com.example.demo.Repository.DonHangRepository;
 import com.example.demo.Repository.SanPhamRepository;
+import com.example.demo.Request.DonHangRequest;
 import com.example.demo.Service.DonHangService;
 import com.example.demo.Service.NguoiDungService;
 import com.example.demo.Service.SanPhamService;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.math.BigDecimal;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -84,7 +86,6 @@ public class DonHangController {
         NguoiDung nguoiDung = (NguoiDung) session.getAttribute("khachHang");
 
         if (nguoiDung == null) {
-            // Chưa đăng nhập, chuyển hướng đến trang đăng nhập
             return "redirect:/dang-nhap";
         }
 
@@ -105,7 +106,7 @@ public class DonHangController {
                 .ngayDatHang(new Date())
                 .diaChiGiaoHang(diaChi)
                 .ghiChu(ghiChu)
-                .soLuong(soLuong)
+                .soLuong(1)
                 .tongTien(tongTien)
                 .trangThai("cho_xu_ly")
                 .build();
@@ -119,19 +120,21 @@ public class DonHangController {
         chiTiet.setDonGia(donGia);
         chiTietDonHangRepository.save(chiTiet);
 
+        // Truyền dữ liệu sang view
         model.addAttribute("nguoiDung", nguoiDung);
         model.addAttribute("diaChiGiaoHang", diaChi);
         model.addAttribute("ghiChu", ghiChu);
         model.addAttribute("gioHang", List.of(chiTiet)); // 1 sản phẩm thôi
         model.addAttribute("tongTien", tongTien);
 
-        return "/DonHang/ThanhToan"; // Tên file HTML xác nhận thanh toán
+        return "/DonHang/ThanhToan";
     }
 
-
     @PostMapping("/thanh-toan/thanh-cong")
-    public String hienThiThanhToan(){
-        return "/DonHang/ThanhCong.html";
+    public String thanhToanThanhCong(@RequestParam("maSanPham") Integer maSanPham,
+                                     @RequestParam("phuongThuc") String phuongThuc,
+                                     HttpSession session) {
+        return "/DonHang/ThanhCong";
     }
 
 }
