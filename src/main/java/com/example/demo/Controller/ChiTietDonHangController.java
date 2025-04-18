@@ -1,5 +1,6 @@
 package com.example.demo.Controller;
 
+import com.example.demo.Entity.ChiTietDonHang;
 import com.example.demo.Repository.SanPhamRepository;
 import com.example.demo.Service.ChitietService;
 import com.example.demo.Service.DonHangService;
@@ -38,5 +39,11 @@ public class ChiTietDonHangController {
         return "/ChiTiet/ChiTiet";
     }
 
+    @GetMapping("/chi-tiet-don-hang/myinfo/{maChiTiet}")
+    public String hienThiChiTietDonHang(@PathVariable Integer maChiTiet, Model model) {
+        ChiTietDonHang chiTiet = chitietService.myinfoByMaChiTiet(maChiTiet);
+        model.addAttribute("chiTiet", chiTiet);
+        return "/ChiTiet/ChiTiet";
+    }
 
 }

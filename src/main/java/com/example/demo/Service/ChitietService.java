@@ -17,4 +17,7 @@ public class ChitietService {
         return chiTietDonHangRepository.findAll();
     }
 
+    public ChiTietDonHang myinfoByMaChiTiet(Integer maChiTiet){
+        return chiTietDonHangRepository.findById(maChiTiet).get();
+    }
 }
