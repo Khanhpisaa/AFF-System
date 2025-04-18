@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form action="/san-pham/add" method="post">
+        <label>Ten San Pham</label>
+        <input type="text"name="tenSanPham">
+        <br>
+        <label>Mo Ta</label>
+        <input type="text"name="moTa">
+        <br>
+        <label>Gia</label>
+        <input type="number"name="gia">
+        <br>
+        <label>So Luong</label>
+        <input type="number"name="soLuong">
+        <br>
+        <label>Ma Doi Tac</label>
+        <select name="doiTac">
+            <option
+                th:each="doiTac : ${listDoiTac}"
+                th:value="${doiTac.maDoiTac}"
+                th:text="${doiTac.TenDoiTac}"
+            ></option>
+        </select>
+        <br>
+        <label>Anh</label>
+        <input type="file"name="anh">
+        <br>
+        <button type="submit">Add</button>
+    </form>
+    <table border="1">
+            <thead>
+                <tr>
+                    <th>MaSanPham</th>
+                    <th>TenSanPham</th>
+                    <th>MoTa</th>
+                    <th>Gia</th>
+                    <th>SoLuong</th>
+                    <th>MaDoiTac</th>
+                    <th>Anh</th>
+                    <th>NgayTao</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="sp : ${SanPhamList}">
+                    <td th:text="${sp.maSanPham}"></td>
+                    <td th:text="${sp.tenSanPham}"></td>
+                    <td th:text="${sp.moTa}"></td>
+                    <td th:text="${sp.gia}"></td>
+                    <td th:text="${sp.soLuong}"></td>
+                    <td th:text="${sp.doiTac.tenDoiTac}"></td>
+                    <td th:text="${sp.anh}"></td>
+                    <td th:text="${sp.ngayTao}"></td>
+                    <td>
+                        <a th:href="@{|/san-pham/xoa/${sp.maSanPham}|}">Xoa</a>
+                    </td>
+                    <td>
+                        <a th:href="@{|/san-pham/detail/${sp.maSanPham}|}">Detail</a>
+                    </td>
+                </tr>
+            </tbody>
+    </table>
+</body>
+</html>

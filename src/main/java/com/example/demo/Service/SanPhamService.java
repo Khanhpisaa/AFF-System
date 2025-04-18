@@ -20,13 +20,27 @@ public class SanPhamService {
         return sanPhamRepository.findAll(pageable);
     }
 
+    //  vua dung home vua dung CRUD
+    public SanPham detailSanPham(Integer id) {
+        Optional<SanPham> optionalSanPham = sanPhamRepository.findById(id);
+        return optionalSanPham.orElse(null);
+    }
+
+
+    // san pham CRUD
+    public List<SanPham> getALL(){
+        return sanPhamRepository.findAll();
+    }
+
     public SanPham addSanPham(SanPham sanPham) {
         return sanPhamRepository.save(sanPham);
     }
 
-    public SanPham detailSanPham(Integer id) {
-        Optional<SanPham> optionalSanPham = sanPhamRepository.findById(id);
-        return optionalSanPham.orElse(null);
+    public void xoaSanPhamByMa(Integer maSanPham){
+        sanPhamRepository.deleteById(maSanPham);
+    }
+    public SanPham detailSanPhamByMa(Integer maSanPham){
+        return  sanPhamRepository.findById(maSanPham).get();
     }
 
 }

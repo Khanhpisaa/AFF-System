@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Date;
 
 @Entity
 @NoArgsConstructor
@@ -30,7 +31,12 @@ public class SanPham {
 
     Integer soLuong;
 
-    LocalDate NgayTao;
+    @Temporal(TemporalType.DATE)
+    Date NgayTao;
 
     String Anh;
+
+    @ManyToOne
+    @JoinColumn(name = "MaDoiTac")
+    DoiTac doiTac;
 }
