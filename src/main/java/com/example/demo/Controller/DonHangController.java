@@ -117,7 +117,7 @@ public class DonHangController {
         chiTiet.setDonHang(donHang);
         chiTiet.setSanPham(sanPham);
         chiTiet.setSoLuong(soLuong);
-        chiTiet.setDonGia(donGia);
+        chiTiet.setDonGia(tongTien);
         chiTietDonHangRepository.save(chiTiet);
 
         // Truyền dữ liệu sang view

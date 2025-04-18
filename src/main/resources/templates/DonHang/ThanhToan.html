@@ -151,7 +151,7 @@
                     <tbody>
                     <tr th:each="item : ${gioHang}">
                         <td th:text="${item.sanPham.tenSanPham}"></td>
-                        <td th:text="${item.donGia}"></td>
+                        <td th:text="${item.sanPham.gia}"></td>
                         <td th:text="${item.soLuong}"></td>
                         <td th:text="${#numbers.formatDecimal(item.soLuong * item.donGia, 0, 'COMMA', 2, 'POINT')}"></td>
                     </tr>
